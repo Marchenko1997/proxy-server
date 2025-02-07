@@ -18,16 +18,16 @@ app.get("/proxy", async (req, res) => {
     const response = await axios.get(url, { responseType: "arraybuffer" });
     const contentType = response.headers["content-type"];
 
- 
+
     const extension = contentType.split("/")[1] || "jpeg";
 
- 
     const fileName = `downloaded-file.${extension}`;
 
-    res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
 
+    res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
     res.setHeader("Content-Type", response.headers["content-type"]);
 
+    
     res.send(response.data);
   } catch (error) {
     res.status(error.response?.status || 500).json({ error: error.message });
