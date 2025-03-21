@@ -7,12 +7,6 @@ const PORT = 3001;
 
 app.use(cors());
 
-// Добавляем корневой маршрут, чтобы проверить работу сервера
-app.get("/", (req, res) => {
-  res.send("Proxy server is running!");
-});
-
-// Маршрут для проксирования запросов
 app.get("/proxy", async (req, res) => {
   const { url } = req.query;
 
@@ -25,6 +19,7 @@ app.get("/proxy", async (req, res) => {
     const contentType = response.headers["content-type"];
 
     const extension = contentType.split("/")[1] || "jpeg";
+
     const fileName = `downloaded-file.${extension}`;
 
     res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
